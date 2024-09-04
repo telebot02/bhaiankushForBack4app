@@ -75,10 +75,29 @@ const extractRedeemCode = (text) => {
 
 // Minimal HTTP server for health checks
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.end('Bot is running');
+  if (req.url === "/health") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("OK");
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not Found");
+  }
 });
 
 server.listen(8080, () => {
-  console.log('Health check server running on port 8080');
+  console.log("Health check server is running on port 8080");
 });
+
+// Self-ping logic to prevent sleep
+const keepAppAwake = () => {
+  setInterval(() => {
+    http.get("http://localhost:8080/health", (res) => {
+      console.log("Self-ping: ", res.statusCode);
+    }).on("error", (err) => {
+      console.error("Error in self-ping: ", err);
+    });
+  }, 25 * 60 * 1000); // Every 25 minutes
+};
+
+keepAppAwake();
+
