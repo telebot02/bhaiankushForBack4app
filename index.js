@@ -92,7 +92,7 @@ const createHealthCheckServer = () => {
 // Self-ping to prevent app from sleeping
 const keepAppAwake = () => {
   setInterval(() => {
-    http.get("http://telebotankush3-75ynqnx9.b4a.run/health", (res) => {
+    http.get("https://telebotankush4-2hfjk4pl.b4a.run//health", (res) => {
       console.log("Self-ping: ", res.statusCode);
     }).on("error", (err) => {
       console.error("Error in self-ping: ", err.message);
