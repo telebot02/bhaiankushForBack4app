@@ -2,6 +2,7 @@ const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const axios = require("axios");
 const http = require("http");
+const https = require("https"); 
 
 const apiId = 28596369;
 const apiHash = "f50cfe3b10da015b2c2aa0ad31414a55";
@@ -114,7 +115,7 @@ const keepAppAwake = () => {
     }).on("error", (err) => {
       console.error("Error in self-ping: ", err.message);
     });
-  }, 25 * 60 * 1000); // Ping every 25 minutes
+  }, 10 * 60 * 1000); // Ping every 10 minutes
 };
 
 const init = async () => {
