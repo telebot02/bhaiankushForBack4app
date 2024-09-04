@@ -90,14 +90,19 @@ server.listen(8080, () => {
 
 // Self-ping logic to prevent sleep
 const keepAppAwake = () => {
-  setInterval(() => {
-    http.get("https://telebotankush1-8n4h9rt2.b4a.run/health", (res) => {
-      console.log("Self-ping: ", res.statusCode);
-    }).on("error", (err) => {
-      console.error("Error in self-ping: ", err);
-    });
+  setInterval(async () => {
+    try {
+      http.get("http://localhost:8080/health", (res) => {
+        console.log("Self-ping: ", res.statusCode);
+      }).on("error", (err) => {
+        console.error("Error in self-ping: ", err.message);  // Improved error handling
+      });
+    } catch (err) {
+      console.error("Caught error during self-ping: ", err);
+    }
   }, 25 * 60 * 1000); // Every 25 minutes
 };
 
 keepAppAwake();
+
 
