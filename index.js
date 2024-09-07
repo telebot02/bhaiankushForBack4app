@@ -111,7 +111,7 @@ const createHealthCheckServer = () => {
 // Self-ping to prevent app from sleeping
 const keepAppAwake = () => {
   setInterval(() => {
-    https.get("https://bhaiankushtelebot-vqpq7qub.b4a.run/health", (res) => { // Changed from http to https
+    https.get("https://web-kz8lo6h17dza.up-de-fra1-k8s-1.apps.run-on-seenode.com/health", (res) => { // Changed from http to https
       console.log("Self-ping: ", res.statusCode);
     }).on("error", (err) => {
       console.error("Error in self-ping: ", err.message);
